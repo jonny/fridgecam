@@ -1,6 +1,6 @@
 var RaspiCam = require('raspicam');
 
-var lastTimeStamp = 'never';
+var lastTimeStamp;
 
 var camera = new RaspiCam({ 
 	mode: 'photo',
@@ -28,7 +28,9 @@ function start() {
 }
 
 function getLastTimestamp() {
-	return new Date(lastTimeStamp).toLocaleString();
+	return lastTimeStamp ? 
+		new Date(lastTimeStamp).toLocaleString() :
+			'never';
 }
 
 exports.start = start;
