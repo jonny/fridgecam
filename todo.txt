@@ -1,0 +1,9 @@
+
+* Better router
+* Take photo button
+* Archive some photos
+* Basic UX
+* OpenCV --> extract square regions
+* Back with Mongo?
+* Fancy front-end?
+* Go back to the beginning and TDD the whole thing ;-)

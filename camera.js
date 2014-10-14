@@ -9,11 +9,11 @@ var camera = new RaspiCam({
 
 
 camera.on('started', function( err, timestamp ){
-	console.log('photo started at ' + timestamp );
+	console.log('Camera started at ' + timestamp );
 });
 
 camera.on('read', function( err, timestamp, filename ){
-	console.log('Photo image captured with filename: ' + filename );
+	console.log('Image captured with filename: ' + filename );
 });
 
 camera.on('exit', function( timestamp ){
@@ -28,7 +28,7 @@ function start() {
 }
 
 function getLastTimestamp() {
-	return lastTimeStamp;
+	return new Date(lastTimeStamp).toLocaleString();
 }
 
 exports.start = start;
