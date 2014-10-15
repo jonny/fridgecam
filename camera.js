@@ -4,7 +4,8 @@ var lastTimeStamp;
 
 var camera = new RaspiCam({ 
 	mode: 'photo',
-	output: './img/latest-pic.jpg'
+	output: './img/latest-pic.jpg',
+	timeout: 10
 });
 
 
