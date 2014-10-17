@@ -6,6 +6,7 @@ function routeRequest(request, response) {
     var parsedUrl = url.parse(request.url);
 	var pathname = parsedUrl.pathname;
 
+	console.log('Routing request for: '+ pathname);
 	for (i = 0; i < routes.length ; i++) {
 		var route = routes[i];
 		if (route.pattern.test(pathname)) {
