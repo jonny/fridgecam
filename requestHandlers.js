@@ -8,11 +8,11 @@ var STATIC_DIR = '/static';
 function displayRoot(parsedUrl, request, response) {
 	console.log('Displaying root.');
 	response.writeHead(200, {'Content-Type': 'text/html'});
-	response.write('<html><head></head>');
+	response.write('<html><head><script src="./static/script.js"></script></head>');
 	response.write('<body><h1>Latest Picture</h1>');
-	response.write('<div><img src=\'.'+ IMG_DIR +'/latest-pic.jpg\'></div>');
-	response.write('<div>Taken at: '+ camera.getLastTimestamp() +'</div>');
-	response.write('<div><a href="javascript:takePhoto">take another photo</a></div>');
+	response.write('<div><img src=\'.'+ IMG_DIR +'/latest-pic.jpg\' id="latestPic"></div>');
+	response.write('<div id="takenAt">Taken at: '+ camera.getLastTimestamp() +'</div>');
+	response.write('<div><a href="javascript:camera.takePhoto()">take another photo</a></div>');
 	response.write('</body></html>');
 	response.end();
 }
@@ -21,12 +21,7 @@ function displayRoot(parsedUrl, request, response) {
 function takePhoto(parsedUrl, request, response) {
 	console.log('Taking photo.');
 	camera.start();
-	response.writeHead(200, {'Content-Type': 'text/html'});
-	response.write('<html><head></head><body><h1>Latest Picture</h1>');
-	response.write('<div><img src=\'.'+ IMG_DIR +'/latest-pic.jpg\'></div>');
-	response.write('Taken at: '+ camera.getLastTimestamp());
-	response.write('</body></html>');
-	response.end();
+	displayRoot(parsedUrl, request, response);
 }
 
 function displayImg(parsedUrl, request, response) {
