@@ -25,7 +25,9 @@ camera.on('exit', function( timestamp ){
 
 function start() {
 	console.log('Starting camera');
+	console.log('t1:'+ lastTimeStamp);
 	camera.start();
+	console.log('t2:'+ lastTimeStamp);
 }
 
 function getLastTimestamp() {

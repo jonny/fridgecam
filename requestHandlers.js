@@ -8,7 +8,10 @@ var STATIC_DIR = '/static';
 function displayRoot(parsedUrl, request, response) {
 	console.log('Displaying root.');
 	response.writeHead(200, {'Content-Type': 'text/html'});
-	response.write('<html><head><script src="./static/script.js"></script></head>');
+	response.write('<html><head>');
+	response.write('<script src="./static/script.js"></script>');
+	response.write('<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>');
+	response.write('</head>');
 	response.write('<body><h1>Latest Picture</h1>');
 	response.write('<div><img src=\'.'+ IMG_DIR +'/latest-pic.jpg\' id="latestPic"></div>');
 	response.write('<div id="takenAt">Taken at: '+ camera.getLastTimestamp() +'</div>');
@@ -21,7 +24,10 @@ function displayRoot(parsedUrl, request, response) {
 function takePhoto(parsedUrl, request, response) {
 	console.log('Taking photo.');
 	camera.start();
-	displayRoot(parsedUrl, request, response);
+	// displayRoot(parsedUrl, request, response);
+	response.writeHead(200, {'Content-Type': 'application/json'});
+	response.write('{"timeStamp": "the time-stamp"}');	
+	response.end();
 }
 
 function displayImg(parsedUrl, request, response) {
