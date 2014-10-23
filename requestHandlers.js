@@ -13,7 +13,7 @@ function displayRoot(parsedUrl, request, response) {
 	response.write('<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>');
 	response.write('</head>');
 	response.write('<body><h1>Latest Picture</h1>');
-	response.write('<div><img src=\'.'+ IMG_DIR +'/latest-pic.jpg\' id="latestPic"></div>');
+	response.write('<div><img src="'+ IMG_DIR +'/latest-pic.jpg" id="latestPic"></div>');
 	response.write('<div id="takenAt">Taken at: '+ camera.getLastTimestamp() +'</div>');
 	response.write('<div><a href="javascript:camera.takePhoto()">take another photo</a></div>');
 	response.write('</body></html>');
@@ -23,11 +23,11 @@ function displayRoot(parsedUrl, request, response) {
 
 function takePhoto(parsedUrl, request, response) {
 	console.log('Taking photo.');
-	camera.start(function(err, timestamp, filename) {
+	camera.start(function(timestamp) {
 		response.writeHead(200, {'Content-Type': 'application/json'});
 		response.write('{');
 		response.write('"timestamp": "'+ timestamp +'",');	
-		response.write('"filename": "'+ filename +'"');
+		response.write('"filename": ".'+ IMG_DIR +'/latest-pic.jpg"');
 		response.write('}');
 		response.end();
 	});

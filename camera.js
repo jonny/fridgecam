@@ -13,19 +13,23 @@ camera.on('started', function( err, timestamp ){
 	console.log('Camera started at ' + timestamp );
 });
 
-// camera.on('read', function( err, timestamp, filename ){
-// 	console.log('Image captured with filename: ' + filename );
-// });
-
-camera.on('exit', function( timestamp ){
-	lastTimeStamp = timestamp;
-	console.log('Camera has exited at timestamp: ' + lastTimeStamp );
+camera.on('read', function( err, timestamp, filename ){
+	console.log('Image captured with filename: ' + filename );
 });
+
+// camera.on('exit', function( timestamp ){
+// 	lastTimeStamp = timestamp;
+// 	console.log('Camera has exited at timestamp: ' + lastTimeStamp );
+// });
 
 
 function start(success) {
 	console.log('Starting camera');
-	camera.on('read', success);
+	camera.on('exit', function(timestamp) {
+		lastTimeStamp = timestamp;
+		console.log('Camera has exited at timestamp: ' + lastTimeStamp );
+		success(timestamp);
+	});
 	camera.start();
 }
 
