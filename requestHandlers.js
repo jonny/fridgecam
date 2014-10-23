@@ -27,7 +27,7 @@ function takePhoto(parsedUrl, request, response) {
 		response.writeHead(200, {'Content-Type': 'application/json'});
 		response.write('{');
 		response.write('"timestamp": "'+ timestamp +'",');	
-		response.write('"filename": "'+ filename +'",');
+		response.write('"filename": "'+ filename +'"');
 		response.write('}');
 		response.end();
 	});
