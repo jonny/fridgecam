@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var camera = require('./camera');
 
 var IMG_DIR = '/img';
@@ -31,21 +32,19 @@ function takePhoto(parsedUrl, request, response) {
 		response.write('}');
 		response.end();
 	});
-	// displayRoot(parsedUrl, request, response);
 }
 
 function displayImg(parsedUrl, request, response) {
-	var imgName = parsedUrl.pathname.slice(IMG_DIR.length);
-    var filePath = '.'+ IMG_DIR + imgName;
-
-	console.log('Displaying image '+ imgName);
-    response.writeHead(200, {'Content-Type': 'image/jpeg' });
-    fs.createReadStream(filePath, 'utf-8').pipe(response);
+	displayFile(parsedUrl, request, response, IMG_DIR);
 }
 
 function displayStaticFile(parsedUrl, request, response) {
-	var file = parsedUrl.pathname.slice(STATIC_DIR.length);
-    var filePath = '.'+ STATIC_DIR + file;
+	displayFile(parsedUrl, request, response, STATIC_DIR);
+}
+
+function displayFile(parsedUrl, request, response, baseDir) {
+	var file = parsedUrl.pathname.slice(baseDir.length);
+    var filePath = path.dirname(require.main.filename) + baseDir + file;
 
     var suffix = 'txt';
     if (file.indexOf('.') > 0) {
@@ -60,6 +59,9 @@ function displayStaticFile(parsedUrl, request, response) {
     	case 'css':
     		fileType = 'text/css';
     		break;
+    	case 'jpg':
+    		fileType = 'image/jpeg';
+    		break;
     }
 
     fs.exists(filePath, function(fileExists) {
@@ -68,6 +70,7 @@ function displayStaticFile(parsedUrl, request, response) {
 		    response.writeHead(200, {'Content-Type': fileType });
 		    fs.createReadStream(filePath, 'utf-8').pipe(response);
     	} else {
+			console.log('Couldn\'t find file: '+ filePath);
 			response.writeHead(404, {'Content-Type': 'text/html'});
 			response.write('<h1>404 Not Found</h1>');
 			response.end('The page you were looking for: '+filePath+' can not be found');    		
