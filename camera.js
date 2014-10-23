@@ -13,9 +13,9 @@ camera.on('started', function( err, timestamp ){
 	console.log('Camera started at ' + timestamp );
 });
 
-camera.on('read', function( err, timestamp, filename ){
-	console.log('Image captured with filename: ' + filename );
-});
+// camera.on('read', function( err, timestamp, filename ){
+// 	console.log('Image captured with filename: ' + filename );
+// });
 
 camera.on('exit', function( timestamp ){
 	lastTimeStamp = timestamp;
@@ -23,11 +23,10 @@ camera.on('exit', function( timestamp ){
 });
 
 
-function start() {
+function start(success) {
 	console.log('Starting camera');
-	console.log('t1:'+ lastTimeStamp);
-	camera.start();
-	console.log('t2:'+ lastTimeStamp);
+	camera.on('read', success);
+	// camera.start();
 }
 
 function getLastTimestamp() {

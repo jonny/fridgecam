@@ -23,11 +23,15 @@ function displayRoot(parsedUrl, request, response) {
 
 function takePhoto(parsedUrl, request, response) {
 	console.log('Taking photo.');
-	camera.start();
+	camera.start(function(err, timestamp, filename) {
+		response.writeHead(200, {'Content-Type': 'application/json'});
+		response.write('{');
+		response.write('"timestamp": "'+ timestamp +'",');	
+		response.write('"filename": "'+ filename +'",');
+		response.write('}');
+		response.end();
+	});
 	// displayRoot(parsedUrl, request, response);
-	response.writeHead(200, {'Content-Type': 'application/json'});
-	response.write('{"timeStamp": "the time-stamp"}');	
-	response.end();
 }
 
 function displayImg(parsedUrl, request, response) {
