@@ -8,8 +8,8 @@ var camera = {
 			context: document.body,
 			dataType: "json",
 			success: function(data) {
-				alert(data.timeStamp);
-				$("#takenAt").text("Taken at: "+ data.timeStamp);
+				alert(data.timestamp);
+				$("#takenAt").text("Taken at: "+ data.timestamp);
 				$("#latestPic").attr("src", "./img/latest-pic.jpg?t=" + new Date().getTime());
 			}
 		});
