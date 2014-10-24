@@ -4,7 +4,7 @@ var lastTimeStamp;
 
 var camera = new RaspiCam({ 
 	mode: 'photo',
-	output: './img/latest-pic.jpg',
+	output: require('path').dirname(require.main.filename) +'/img/latest-pic.jpg',
 	timeout: 10
 });
 
@@ -16,12 +16,6 @@ camera.on('started', function( err, timestamp ){
 camera.on('read', function( err, timestamp, filename ){
 	console.log('Image captured with filename: ' + filename );
 });
-
-// camera.on('exit', function( timestamp ){
-// 	lastTimeStamp = timestamp;
-// 	console.log('Camera has exited at timestamp: ' + lastTimeStamp );
-// });
-
 
 function start(success) {
 	console.log('Starting camera');
